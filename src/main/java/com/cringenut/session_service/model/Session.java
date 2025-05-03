@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Session {
 
-    private List<Player> players;
-    private Deck deck;
+    private Integer ownerId;
+    private Player[] players;
 
 }
