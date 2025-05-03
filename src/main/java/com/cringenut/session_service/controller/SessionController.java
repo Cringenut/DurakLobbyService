@@ -3,8 +3,11 @@ package com.cringenut.session_service.controller;
 import com.cringenut.session_service.model.Session;
 import com.cringenut.session_service.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("session")
@@ -14,8 +17,15 @@ public class SessionController {
     private SessionService sessionService;
 
     @PostMapping
-    public ResponseEntity<Session> createSession(@RequestParam Integer size, @RequestParam Integer ownerId) {
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Session createSession(@RequestParam Integer size, @RequestParam Integer ownerId) {
         return sessionService.createSession(size, ownerId);
+    }
+
+    @GetMapping("/{sessionId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Session getSession(@PathVariable Integer sessionId) {
+        return sessionService.getSession(sessionId);
     }
 
 

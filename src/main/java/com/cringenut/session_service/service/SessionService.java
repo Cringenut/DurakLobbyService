@@ -5,9 +5,12 @@ import com.cringenut.session_service.model.Session;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SessionService {
@@ -19,7 +22,7 @@ public class SessionService {
     }
 
     @CachePut(value = "SESSION_CACHE", key = "#ownerId")
-    public ResponseEntity<Session> createSession(Integer size, Integer ownerId) {
+    public Session createSession(Integer size, Integer ownerId) {
         Session session = new Session();
         session.setPlayers(new Player[size]);
         session.setOwnerId(ownerId);
@@ -27,6 +30,12 @@ public class SessionService {
         Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
         sessionCache.put(ownerId, session);
 
-        return new ResponseEntity<>(session, HttpStatus.CREATED);
+        return session;
+    }
+
+    @Cacheable(value = "SESSION_CACHE", key = "#sessionId")
+    public Session getSession(Integer sessionId) {
+        Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
+        return sessionCache.get(sessionId, Session.class);
     }
 }
