@@ -10,6 +10,6 @@ import java.util.List;
 public class Session {
 
     private Integer ownerId;
-    private Player[] players;
+    private Integer[] playerIds;
 
 }

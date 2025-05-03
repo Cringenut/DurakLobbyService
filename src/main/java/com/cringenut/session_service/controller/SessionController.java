@@ -34,5 +34,10 @@ public class SessionController {
         sessionService.deleteSession(sessionId);
     }
 
+    @PostMapping("/{sessionId}/{userId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Session joinSession(@PathVariable Integer sessionId, @PathVariable Integer userId) {
+        return sessionService.joinSession(sessionId, userId);
+    }
 
 }

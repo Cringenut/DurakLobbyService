@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 public class SessionService {
@@ -25,7 +27,10 @@ public class SessionService {
     @CachePut(value = "SESSION_CACHE", key = "#ownerId")
     public Session createSession(Integer size, Integer ownerId) {
         Session session = new Session();
-        session.setPlayers(new Player[size]);
+        Integer[] playerIds = new Integer[size];
+        playerIds[0] = ownerId; // Make owner the first player
+
+        session.setPlayerIds(playerIds);
         session.setOwnerId(ownerId);
 
         Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
@@ -45,4 +50,23 @@ public class SessionService {
         Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
         sessionCache.evict(sessionId);
     }
+
+    @CachePut(value = "SESSION_CACHE", key = "#sessionId")
+    public Session joinSession(Integer sessionId, Integer userId) {
+        Session session = getSession(sessionId);
+        Integer[] playerIds = session.getPlayerIds();
+
+        IntStream.range(0, playerIds.length)
+                .filter(i -> playerIds[i] == null)
+                .findFirst()
+                .ifPresent(i -> playerIds[i] = userId);
+        System.out.println("Player ids: " + Arrays.toString(playerIds));
+        System.out.println("Session ids: " + Arrays.toString(session.getPlayerIds()));
+
+        Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
+        sessionCache.put(sessionId, session);
+
+        return session;
+    }
+
 }
