@@ -4,6 +4,7 @@ import com.cringenut.session_service.model.Player;
 import com.cringenut.session_service.model.Session;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,11 @@ public class SessionService {
     public Session getSession(Integer sessionId) {
         Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
         return sessionCache.get(sessionId, Session.class);
+    }
+
+    @CacheEvict(value = "SESSION_CACHE", key = "#sessionId")
+    public void deleteSession(Integer sessionId) {
+        Cache sessionCache = cacheManager.getCache("SESSION_CACHE");
+        sessionCache.evict(sessionId);
     }
 }

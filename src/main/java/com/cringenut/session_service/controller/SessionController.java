@@ -28,5 +28,11 @@ public class SessionController {
         return sessionService.getSession(sessionId);
     }
 
+    @DeleteMapping("/{sessionId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteSession(@PathVariable Integer sessionId) {
+        sessionService.deleteSession(sessionId);
+    }
+
 
 }
