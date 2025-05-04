@@ -1,4 +1,4 @@
-package com.cringenut.session_service.enums;
+package com.cringenut.lobby_service.enums;
 
 public enum Rank {
     TWO(2),

@@ -1,4 +1,4 @@
-package com.cringenut.session_service;
+package com.cringenut.lobby_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableCaching
-public class SessionServiceApplication {
+public class LobbyServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SessionServiceApplication.class, args);
+		SpringApplication.run(LobbyServiceApplication.class, args);
 	}
 
 }

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cringenut</groupId>
-	<artifactId>session-service</artifactId>
+	<artifactId>lobby-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>session-service</name>
+	<name>lobby-service</name>
 	<description>Service responsible for keeping the truth about ongoing game</description>
 	<url/>
 	<licenses>

@@ -1,6 +1,6 @@
-package com.cringenut.session_service.config;
+package com.cringenut.lobby_service.config;
 
-import com.cringenut.session_service.model.Session;
+import com.cringenut.lobby_service.model.Lobby;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -19,7 +19,7 @@ public class RedisCacheConfiguration {
                 .entryTtl(Duration.ofMinutes(10))
                 .disableCachingNullValues()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair
-                        .fromSerializer(new Jackson2JsonRedisSerializer<>(Session.class)));
+                        .fromSerializer(new Jackson2JsonRedisSerializer<>(Lobby.class)));
 
         return RedisCacheManager
                 .builder(redisConnectionFactory)

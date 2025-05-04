@@ -1,10 +1,10 @@
-package com.cringenut.session_service;
+package com.cringenut.lobby_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SessionServiceApplicationTests {
+class LobbyServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
